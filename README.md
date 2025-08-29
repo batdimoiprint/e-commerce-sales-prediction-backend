@@ -116,7 +116,7 @@ Use the `/api/predictions/sales` endpoint to forecast sales for a specified numb
 ## Frontend Repository
 
 The frontend for this project is available at:  
-[https://github.com/kenny2125/e-commerce-sales-prediction-frontend](https://github.com/kenny2125/e-commerce-sales-prediction-frontend)
+[https://github.com/batdimoiprint/e-commerce-sales-prediction-frontend](https://github.com/batdimoiprint/e-commerce-sales-prediction-frontend)
 
 ## Contributing
 

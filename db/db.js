@@ -44,18 +44,18 @@ const pool = new Pool({
   keepAliveInitialDelayMillis: PG_KEEPALIVE_IDLE_MS ? parseInt(PG_KEEPALIVE_IDLE_MS, 10) : 10000,
 });
 
-// Helper to prefix public schema automatically
-function prefixPublicSchema(sql) {
+// Helper to prefix officesolutions schema automatically
+function prefixOfficesolutionsSchema(sql) {
   return sql.replace(
-    /(?<!(public|schema)\.)\b(tbl_users|products|product_variants|cart_items|orders|order_items|historical_sales)(?=\s|\)|;|,|$)/gi,
-    'public.$2'
+    /(?<!(officesolutions|schema)\.)\b(tbl_users|products|product_variants|cart_items|orders|order_items|historical_sales)(?=\s|\)|;|,|$)/gi,
+    'officesolutions.$2'
   );
 }
 
 module.exports = {
   // Regular pooled query
   query: (text, params) => {
-    const modifiedText = prefixPublicSchema(text);
+    const modifiedText = prefixOfficesolutionsSchema(text);
     return pool.query(modifiedText, params);
   },
 
@@ -63,7 +63,7 @@ module.exports = {
   withTransaction: async (fn) => {
     const client = await pool.connect();
     const tx = {
-      query: (text, params) => client.query(prefixPublicSchema(text), params),
+      query: (text, params) => client.query(prefixOfficesolutionsSchema(text), params),
     };
     try {
       await client.query('BEGIN');
